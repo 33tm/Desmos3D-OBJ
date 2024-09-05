@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from sys import argv
-from time import sleep
 from selenium import webdriver
 
 if len(argv) < 2:
@@ -20,6 +19,9 @@ def get(selector):
 def folder():
     try:
         get("button[aria-label='Add Item']").click()
+        get("div[aria-label='Add folder']").click()
+        get("textarea[aria-label='Folder']").send_keys(argv[1])
+        get(f"div[aria-label='Collapse {argv[1]} folder']").click()
     except:
         folder()
 
@@ -29,12 +31,6 @@ def graph(equation):
     # move to folder
 
 folder()
-
-get("div[aria-label='Add folder']").click()
-
-get("textarea[aria-label='Folder']").send_keys(argv[1])
-
-get(f"div[aria-label='Collapse {argv[1]} folder']").click()
 
 graph("x^2+y^2-z^2=1")
 
