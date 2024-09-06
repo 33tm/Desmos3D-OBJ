@@ -26,13 +26,11 @@ def folder():
         folder()
 
 def graph(equation):
-    get("div[class^='dcg-new-math-div']").click()
-    get("span.dcg-mq-textarea textarea").send_keys(equation)
+    get("div.dcg-new-math-div").click()
+    get("textarea.dcg-focus-visible").send_keys(equation)
     # move to folder
 
 folder()
-
-graph("x^2+y^2-z^2=1")
 
 with open(argv[1]) as obj:
     for line in obj:
@@ -45,7 +43,8 @@ with open(argv[1]) as obj:
             case "#":
                 continue
             case "v":
-                x, y, z, *w = args
+                x, y, z = args
+                graph(f"({x}, {y}, {z})")
             case _:
                 x
                 print(f'Unexpected "{command}"')
